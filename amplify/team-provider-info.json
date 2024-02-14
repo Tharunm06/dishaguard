@@ -16,5 +16,23 @@
         "dishaguard381d948c": {}
       }
     }
+  },
+  "main": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dishaguard-main-94330-authRole",
+      "UnauthRoleArn": "arn:aws:iam::992382814398:role/amplify-dishaguard-main-94330-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::992382814398:role/amplify-dishaguard-main-94330-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-dishaguard-main-94330-deployment",
+      "UnauthRoleName": "amplify-dishaguard-main-94330-unauthRole",
+      "StackName": "amplify-dishaguard-main-94330",
+      "StackId": "arn:aws:cloudformation:us-east-1:992382814398:stack/amplify-dishaguard-main-94330/6b2a68c0-caef-11ee-9cbe-1274e23328a7",
+      "AmplifyAppId": "d1ej3vj7j9q56g"
+    },
+    "categories": {
+      "auth": {
+        "dishaguard381d948c": {}
+      }
+    }
   }
 }

@@ -1,22 +1,18 @@
-  import React from 'react';
-  import { withAuthenticator, Button, Heading, Image, View, Card } from "@aws-amplify/ui-react";
-  import logo from "./logo.svg";
-  import "@aws-amplify/ui-react/styles.css";
-  import './App.css';
+import React from 'react';
+import { withAuthenticator, Button, View } from "@aws-amplify/ui-react";
+import logo from "./logo.svg";
+import "@aws-amplify/ui-react/styles.css";
+import './App.css';
+import RegisterVisitor from "./components/listgroup.tsx";
 
+function App({ signOut }) {
+  return (
+    <View className="App">
+      
+      <RegisterVisitor />
+      <Button onClick={signOut}>Sign Out</Button>
+    </View>
+  );
+}
 
-  function App({ signOut }) {
-    return (
-      <View className="App">
-        
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1>Hello from V2</h1>
-        </header>
-        <Button onClick={signOut}>Sign Out</Button>
-      </View>
-    );
-  }
-
-  
-  export default withAuthenticator(App);
+export default withAuthenticator(App);

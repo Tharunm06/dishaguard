@@ -53,6 +53,12 @@
     "categories": {
       "auth": {
         "dishaguard381d948c": {}
+      },
+      "api": {
+        "dishaguard": {}
+      },
+      "storage": {
+        "visitorsdata": {}
       }
     }
   }

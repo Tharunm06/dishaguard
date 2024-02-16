@@ -26,11 +26,21 @@ export default function NoteUpdateForm(props) {
   } = props;
   const initialValues = {
     name: "",
-    description: "",
+    mobileNumber: "",
+    purposeOfVisit: "",
+    image: "",
+    vehicleNumber: "",
   };
   const [name, setName] = React.useState(initialValues.name);
-  const [description, setDescription] = React.useState(
-    initialValues.description
+  const [mobileNumber, setMobileNumber] = React.useState(
+    initialValues.mobileNumber
+  );
+  const [purposeOfVisit, setPurposeOfVisit] = React.useState(
+    initialValues.purposeOfVisit
+  );
+  const [image, setImage] = React.useState(initialValues.image);
+  const [vehicleNumber, setVehicleNumber] = React.useState(
+    initialValues.vehicleNumber
   );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
@@ -38,7 +48,10 @@ export default function NoteUpdateForm(props) {
       ? { ...initialValues, ...noteRecord }
       : initialValues;
     setName(cleanValues.name);
-    setDescription(cleanValues.description);
+    setMobileNumber(cleanValues.mobileNumber);
+    setPurposeOfVisit(cleanValues.purposeOfVisit);
+    setImage(cleanValues.image);
+    setVehicleNumber(cleanValues.vehicleNumber);
     setErrors({});
   };
   const [noteRecord, setNoteRecord] = React.useState(noteModelProp);
@@ -59,7 +72,10 @@ export default function NoteUpdateForm(props) {
   React.useEffect(resetStateValues, [noteRecord]);
   const validations = {
     name: [{ type: "Required" }],
-    description: [],
+    mobileNumber: [],
+    purposeOfVisit: [],
+    image: [],
+    vehicleNumber: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -88,7 +104,10 @@ export default function NoteUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           name,
-          description: description ?? null,
+          mobileNumber: mobileNumber ?? null,
+          purposeOfVisit: purposeOfVisit ?? null,
+          image: image ?? null,
+          vehicleNumber: vehicleNumber ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -150,7 +169,10 @@ export default function NoteUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               name: value,
-              description,
+              mobileNumber,
+              purposeOfVisit,
+              image,
+              vehicleNumber,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -166,29 +188,116 @@ export default function NoteUpdateForm(props) {
         {...getOverrideProps(overrides, "name")}
       ></TextField>
       <TextField
-        label="Description"
+        label="Mobile number"
         isRequired={false}
         isReadOnly={false}
-        value={description}
+        value={mobileNumber}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               name,
-              description: value,
+              mobileNumber: value,
+              purposeOfVisit,
+              image,
+              vehicleNumber,
             };
             const result = onChange(modelFields);
-            value = result?.description ?? value;
+            value = result?.mobileNumber ?? value;
           }
-          if (errors.description?.hasError) {
-            runValidationTasks("description", value);
+          if (errors.mobileNumber?.hasError) {
+            runValidationTasks("mobileNumber", value);
           }
-          setDescription(value);
+          setMobileNumber(value);
         }}
-        onBlur={() => runValidationTasks("description", description)}
-        errorMessage={errors.description?.errorMessage}
-        hasError={errors.description?.hasError}
-        {...getOverrideProps(overrides, "description")}
+        onBlur={() => runValidationTasks("mobileNumber", mobileNumber)}
+        errorMessage={errors.mobileNumber?.errorMessage}
+        hasError={errors.mobileNumber?.hasError}
+        {...getOverrideProps(overrides, "mobileNumber")}
+      ></TextField>
+      <TextField
+        label="Purpose of visit"
+        isRequired={false}
+        isReadOnly={false}
+        value={purposeOfVisit}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              mobileNumber,
+              purposeOfVisit: value,
+              image,
+              vehicleNumber,
+            };
+            const result = onChange(modelFields);
+            value = result?.purposeOfVisit ?? value;
+          }
+          if (errors.purposeOfVisit?.hasError) {
+            runValidationTasks("purposeOfVisit", value);
+          }
+          setPurposeOfVisit(value);
+        }}
+        onBlur={() => runValidationTasks("purposeOfVisit", purposeOfVisit)}
+        errorMessage={errors.purposeOfVisit?.errorMessage}
+        hasError={errors.purposeOfVisit?.hasError}
+        {...getOverrideProps(overrides, "purposeOfVisit")}
+      ></TextField>
+      <TextField
+        label="Image"
+        isRequired={false}
+        isReadOnly={false}
+        value={image}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              mobileNumber,
+              purposeOfVisit,
+              image: value,
+              vehicleNumber,
+            };
+            const result = onChange(modelFields);
+            value = result?.image ?? value;
+          }
+          if (errors.image?.hasError) {
+            runValidationTasks("image", value);
+          }
+          setImage(value);
+        }}
+        onBlur={() => runValidationTasks("image", image)}
+        errorMessage={errors.image?.errorMessage}
+        hasError={errors.image?.hasError}
+        {...getOverrideProps(overrides, "image")}
+      ></TextField>
+      <TextField
+        label="Vehicle number"
+        isRequired={false}
+        isReadOnly={false}
+        value={vehicleNumber}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              mobileNumber,
+              purposeOfVisit,
+              image,
+              vehicleNumber: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.vehicleNumber ?? value;
+          }
+          if (errors.vehicleNumber?.hasError) {
+            runValidationTasks("vehicleNumber", value);
+          }
+          setVehicleNumber(value);
+        }}
+        onBlur={() => runValidationTasks("vehicleNumber", vehicleNumber)}
+        errorMessage={errors.vehicleNumber?.errorMessage}
+        hasError={errors.vehicleNumber?.hasError}
+        {...getOverrideProps(overrides, "vehicleNumber")}
       ></TextField>
       <Flex
         justifyContent="space-between"

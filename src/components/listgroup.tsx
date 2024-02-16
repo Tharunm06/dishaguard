@@ -1,26 +1,60 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from "react";
+import "E:/dishaguard/src/App.css";
+import "@aws-amplify/ui-react/styles.css";
+import { uploadData, remove } from 'aws-amplify/storage';
+import { Button, View, withAuthenticator } from "@aws-amplify/ui-react";
+import { createNote as createNoteMutation } from "E:/dishaguard/src/graphql/mutations";
+import { Amplify } from 'aws-amplify';
+import awsExports from 'E:/dishaguard/src/aws-exports.js';
+import { generateClient } from 'aws-amplify/api';
 
-const RegisterVisitor = () => {
-  const [previewVisible, setPreviewVisible] = React.useState(false);
-  const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
+Amplify.configure(awsExports);
 
-  const handleFileInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const fileInput = event.target.files?.[0]; // Use optional chaining
+const client = generateClient();
+
+const RegisterVisitor = ({ signOut }) => {
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileInputChange = useCallback((event) => {
+    const fileInput = event.target.files?.[0];
     if (fileInput) {
       setPreviewVisible(true);
       setSelectedFile(fileInput);
     }
-  }, []); 
-
-  const navigateToNextPage = useCallback(() => {
-    // Navigate to the next HTML page (replace 'mobile-verification.html' with your actual file name)
-    window.location.href = 'Mobile_Verification.html';
   }, []);
+
+  const createNote = async (event) => {
+    event.preventDefault();
+    const form = new FormData(event.target);
+    const image = form.get("image");
+    const data = {
+      name: form.get("Name"),
+      mobileNumber: form.get("mobileNumber"),
+      purposeOfVisit: form.get("purposeOfVisit"),
+      image: image?.name || null // Check if image exists before accessing name
+    };
+
+    if (image) {
+      await uploadData(data.name, image);
+    }
+
+    await client.graphql({
+      query: createNoteMutation,
+      variables: { input: data },
+    });
+
+    // Reset the form or perform any other necessary actions
+    event.target.reset();
+    setPreviewVisible(false);
+    setSelectedFile(null);
+  };
+  
 
   return (
     <div className="login-container">
       <h2>Register Visitor</h2>
-      <form>
+      <form onSubmit={createNote}>
         <div className="input-group">
           <input type="text" placeholder="Name" id="Name" name="Name" required />
         </div>
@@ -28,7 +62,7 @@ const RegisterVisitor = () => {
           <input type="tel" id="mobileNumber" name="mobileNumber" pattern="[0-9]{10}" placeholder="Enter your mobile number" required />
         </div>
         <div className="input-group">
-          <input type="text" list="PurposeOfVisit" placeholder="Purpose of Visit" required />
+          <input type="text" list="PurposeOfVisit" placeholder="Purpose of Visit" name="purposeOfVisit" required />
           <datalist id="PurposeOfVisit">
             <option value="Professor Ashok Jhunjhunwala,IITMRP,9898989898">Professor Ashok Jhunjhunwala,IITMRP,9898989898</option>
             <option value="PANOCULONLABS,E303,IITMRP">PANOCULONLABS,E303,IITMRP</option>
@@ -48,11 +82,12 @@ const RegisterVisitor = () => {
           <input type="text" placeholder="Vehicle Number" id="VehicleNumber" name="VehicleNumber" required />
         </div>
         <div className="input-group">
-          <button type="button" onClick={navigateToNextPage}>Send OTP</button>
+          <button type="submit">Send OTP</button>
         </div>
       </form>
+      <Button onClick={signOut}>Sign Out</Button>
     </div>
   );
 };
 
-export default RegisterVisitor;
+export default withAuthenticator(RegisterVisitor);

@@ -1,0 +1,13 @@
+{
+  "resourceName": "visitorsdata",
+  "policyUUID": "d355a8e1",
+  "bucketName": "disha-visitor-data-base",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

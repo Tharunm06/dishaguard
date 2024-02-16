@@ -3,7 +3,7 @@ import { withAuthenticator, Button, View } from "@aws-amplify/ui-react";
 import logo from "./logo.svg";
 import "@aws-amplify/ui-react/styles.css";
 import './App.css';
-import RegisterVisitor from "./listgroup.tsx";
+import RegisterVisitor from "./components/listgroup.tsx";
 
 
 

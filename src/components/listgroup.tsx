@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import ".//App.css";
+import "E:/dishaguard/src/App.css"
 import "@aws-amplify/ui-react/styles.css";
 import { uploadData, remove } from 'aws-amplify/storage';
 import { Button, View, withAuthenticator } from "@aws-amplify/ui-react";
@@ -32,12 +32,10 @@ const RegisterVisitor = ({ signOut }) => {
       name: form.get("Name"),
       mobileNumber: form.get("mobileNumber"),
       purposeOfVisit: form.get("purposeOfVisit"),
-      image: image?.name || null // Check if image exists before accessing name
+       // Check if image exists before accessing name
     };
 
-    if (image) {
-      await uploadData(data.name, image);
-    }
+  
 
     await client.graphql({
       query: createNoteMutation,

@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from "react";
 import { Button, View, withAuthenticator } from "@aws-amplify/ui-react";
-import { uploadData, remove } from 'aws-amplify/storage';
 import { createNote as createNoteMutation } from "E:/dishaguard/src/graphql/mutations";
 import { Amplify } from 'aws-amplify';
 import awsExports from 'E:/dishaguard/src/aws-exports.js';
@@ -94,7 +93,7 @@ const RegisterVisitor = ({ signOut }) => {
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            align-items : center;
+            align-items: center;
             width: 80%;
             max-width: 400px;
             text-align: center;

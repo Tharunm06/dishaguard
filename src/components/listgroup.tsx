@@ -1,8 +1,6 @@
 import React, { useState, useCallback } from "react";
-import "E:/dishaguard/src/App.css"
-import "@aws-amplify/ui-react/styles.css";
-import { uploadData, remove } from 'aws-amplify/storage';
 import { Button, View, withAuthenticator } from "@aws-amplify/ui-react";
+import { uploadData, remove } from 'aws-amplify/storage';
 import { createNote as createNoteMutation } from "E:/dishaguard/src/graphql/mutations";
 import { Amplify } from 'aws-amplify';
 import awsExports from 'E:/dishaguard/src/aws-exports.js';
@@ -32,10 +30,7 @@ const RegisterVisitor = ({ signOut }) => {
       name: form.get("Name"),
       mobileNumber: form.get("mobileNumber"),
       purposeOfVisit: form.get("purposeOfVisit"),
-       // Check if image exists before accessing name
     };
-
-  
 
     await client.graphql({
       query: createNoteMutation,
@@ -47,10 +42,137 @@ const RegisterVisitor = ({ signOut }) => {
     setPreviewVisible(false);
     setSelectedFile(null);
   };
-  
 
   return (
     <div className="login-container">
+      <style>
+        {`
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+          }
+
+          #previewContainer {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            display: none;
+            margin-top: 10px;
+          }
+
+          #imagePreview {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 4px;
+          }
+
+          #previewButtons {
+            margin-top: 10px;
+            display: none;
+          }
+
+          #retakeButton, #confirmButton {
+            padding: 8px;
+            margin-right: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+          }
+
+          .login-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            align-items : center;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            margin-left: 40px;
+            margin-top: 10%;
+            margin-bottom: 10%;
+          }
+
+          .login-container h2 {
+            margin-bottom: 20px;
+          }
+
+          .input-group {
+            margin-bottom: 20px;
+          }
+
+          .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+
+          .input-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+          }
+
+          .input-group button {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: #F6BF6D;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+          }
+
+          .OTP-button {
+            text-decoration: none;
+            flex: 1;
+            color: black;
+            padding: 10px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #F6BF6D;
+            border: none;
+          }
+
+          .back-btn {
+            text-decoration: none;
+            color: black;
+            padding: 10px;
+            margin: 0 5px;
+            border: none;
+            align-content: center;
+            width: 100px;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #F6BF6D;
+            border: none;
+          }
+
+          @media (max-width: 768px) {
+            .logo-container {
+              top: 30px;
+              width: 80px;
+              height: 80px;
+            }
+          }
+        `}
+      </style>
+
       <h2>Register Visitor</h2>
       <form onSubmit={createNote}>
         <div className="input-group">

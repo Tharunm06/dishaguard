@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { Button, View, withAuthenticator } from "@aws-amplify/ui-react";
 import { createNote as createNoteMutation } from "E:/dishaguard/src/graphql/mutations";
 import { Amplify } from 'aws-amplify';
-import awsExports from './aws-exports'
+import awsExports from '../aws-exports.js';
 import { generateClient } from 'aws-amplify/api';
 
 Amplify.configure(awsExports);
